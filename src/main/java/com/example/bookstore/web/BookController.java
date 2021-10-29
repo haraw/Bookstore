@@ -47,11 +47,10 @@ public class BookController {
         return "redirect:booklist";
     }
 	
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String delete(@PathVariable String no){
-		long id = Long.parseLong(no);
-        repository.deleteById(id);
-        return "redirect:booklist";
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String deleteStudent(@PathVariable("id") Long id, Model model) {
+    	repository.deleteById(id);
+        return "redirect:../booklist";
     }
 	
 }
