@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Bean;
 import com.example.bookstore.model.Book;
 import com.example.bookstore.model.BookRepository;
 
+import com.example.bookstore.model.Category;
+import com.example.bookstore.model.CategoryRepository;
+
 
 
 @SpringBootApplication
@@ -20,11 +23,17 @@ public class BookstoreApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(BookRepository repository) {
+	public CommandLineRunner demo(BookRepository repository, CategoryRepository crepository) {
 	  return (args) -> {
 		  Log.info("save a couple of books");
-		  repository.save(new Book("The New World Order", "Epperson", 1990, "123-344", 18.90));
-		  repository.save(new Book("Hermanni", "Lassinen", 2021, "333-344", 9.90));
+		  
+		  crepository.save(new Category("SciFi"));
+		  crepository.save(new Category("Romantic"));
+		  crepository.save(new Category("Horror"));
+		  
+		  
+		  repository.save(new Book("The New World Order", "Epperson", 1990, "123-344", 18.90, crepository.findByName("SciFi").get(0)));
+		  repository.save(new Book("Hermanni", "Lassinen", 2021, "333-344", 9.90, crepository.findByName("Romantic").get(0)));
 	  };
 	  
 	}

@@ -16,6 +16,16 @@
       <input type="text" th:field="*{isbn}" />
       <label for="year">year</label>
       <input type="text" th:field="*{year}" />
+      <label for="price">Price</label>
+      <input type="text" th:field="*{price}" />
+      <label for="catlist">Category</label>
+   <!--     <select id="catlist" th:field="*{category}" class="form-control">
+       	<option th:each="category: ${categories}" th:value="${category.categoryid}" th:text="${category.name}"></option>
+      </select> -->
+      
+      
+      
+      
       <input type="submit" value="Save"></input>
   </form>
 </div> 
