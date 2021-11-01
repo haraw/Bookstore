@@ -17,18 +17,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import com.example.bookstore.web.UserDetailServiceImpl;
+
 
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	@Autowired
+    private com.example.bookstore.web.UserDetailServiceImpl userDetailsService;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
                 .antMatchers("/", "/index", "/add/**", "/save", "/booklist", "/modify/**").permitAll()
-                .antMatchers("/delete/**").hasRole("ADMIN")
+               // .antMatchers("/delete/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -38,9 +43,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .logout()
                 .permitAll();
     }
+    
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+    }
 
 
-    @Bean
+   /** @Bean
     @Override
     public UserDetailsService userDetailsService() {
         List<UserDetails> users = new ArrayList();
@@ -61,7 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	users.add(user);
     	
         return new InMemoryUserDetailsManager(users);
-    }
+    } **/
 }
 	
 

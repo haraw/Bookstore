@@ -1,4 +1,4 @@
-package com.example.bookstore.model;
+package com.example.bookstore.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
