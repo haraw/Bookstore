@@ -62,6 +62,11 @@ public class BookController {
         return "redirect:../booklist";
     }
 	
+	@RequestMapping(value="/login")
+	public String login() {
+		return "login";
+	}
+	
 	// REST-toiminnot
 	
 	@GetMapping("/kirjat")
