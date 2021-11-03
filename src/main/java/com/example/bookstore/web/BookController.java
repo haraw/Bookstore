@@ -27,7 +27,7 @@ public class BookController {
 	@Autowired
 	private CategoryRepository crepository;
 	
-	
+	// Kirjojen lisäys
 	@RequestMapping(value= "/addbook")
 	public String addBook(Model model) {
 		model.addAttribute("book", new Book()); 
@@ -41,7 +41,7 @@ public class BookController {
 		model.addAttribute("books", repository.findAll());
 		return "booklist";
 	}
-	
+	// Kirjojen muuttaminen
 	@RequestMapping(value="/modify/{id}", method=RequestMethod.GET)
 	public String modifyBook(@PathVariable("id") Long bookId, Model model) {
 		System.out.println("MUOKKAUS");
@@ -50,13 +50,13 @@ public class BookController {
 		model.addAttribute("categories", crepository.findAll());
 		return "modifybook";
 	}
-
+	// Tallentaminen
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Book book){
         repository.save(book);
         return "redirect:booklist";
     }
-	
+	// Poisto
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	@PreAuthorize("hasAuthority('ADMIN')")
     public String deleteStudent(@PathVariable("id") Long id, Model model) {
